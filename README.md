@@ -33,16 +33,17 @@ Add these data attributes to any element you want to animate:
 
 ## Performance Benefits
 
-This implementation uses IntersectionObserver for superior performance compared to traditional scroll event listeners:
+This implementation uses IntersectionObserver for superior performance compared to Webflow's native animations:
 
-### Scroll Event Listener (old method):
+### Webflow Animations (current method):
 
-- Fires 60+ times/second
-- Runs on main thread
-- Blocks other JavaScript
-- Heavy CPU usage
+- Constant scroll event processing
+- CSS transitions (can be janky on mobile)
+- No cleanup after animation
+- Higher CPU usage
+- More battery drain on mobile
 
-### IntersectionObserver (your implementation):
+### IntersectionObserver (new method):
 
 - Fires only when elements enter/exit viewport
 - Runs off main thread
