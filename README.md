@@ -115,13 +115,13 @@ You can directly use these files from JSDelivr:
 **JavaScript:**
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/pdc-path/webflow-animations@latest/animations.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/athesing-point/gsap-animations@latest/animations.min.js"></script>
 ```
 
 **CSS:**
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pdc-path/webflow-animations@latest/animations-initial.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/athesing-point/gsap-animations@latest/animations-initial.min.css" />
 ```
 
-Note: While using @latest is convenient for development, we recommend pinning to a specific version in production for stability.
+Note: While using @latest is convenient for development, we recommend pinning to a specific version (commit hash) in production for stability.
