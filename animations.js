@@ -46,28 +46,27 @@ class ScrollAnimations {
         duration: this.defaultDuration,
       },
       slideUp: {
-        y: this.movementDistance, // Using global variable
+        y: this.movementDistance,
         opacity: 0,
         duration: this.defaultDuration,
       },
       slideDown: {
-        y: `-${this.movementDistance}`, // Using negative of global variable
+        y: `-${this.movementDistance}`,
         opacity: 0,
         duration: this.defaultDuration,
       },
       slideLeft: {
-        x: `-${this.movementDistance}`, // Using negative of global variable
+        x: `-${this.movementDistance}`,
         opacity: 0,
         duration: this.defaultDuration,
       },
       slideRight: {
-        x: this.movementDistance, // Using global variable
+        x: this.movementDistance,
         opacity: 0,
         duration: this.defaultDuration,
       },
     };
 
-    this.setInitialStates();
     setTimeout(() => this.init(), 100);
   }
 
@@ -75,21 +74,6 @@ class ScrollAnimations {
   safelyParseNumber(value, defaultValue) {
     const parsed = parseFloat(value);
     return !isNaN(parsed) && parsed >= 0 ? parsed : defaultValue;
-  }
-
-  setInitialStates() {
-    const animatedElements = document.querySelectorAll("[data-anim]");
-    animatedElements.forEach((element) => {
-      const animation = element.getAttribute("data-anim");
-      if (this.defaultAnimations[animation]) {
-        gsap.set(element, {
-          opacity: 0,
-          x: this.defaultAnimations[animation].x || 0,
-          y: this.defaultAnimations[animation].y || 0,
-          immediateRender: true,
-        });
-      }
-    });
   }
 
   init() {

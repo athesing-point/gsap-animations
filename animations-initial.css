@@ -1,0 +1,29 @@
+/* Initial states for animations */
+[data-anim="fadeIn"] {
+  opacity: 0;
+}
+
+[data-anim="slideUp"] {
+  opacity: 0;
+  transform: translateY(2rem);
+}
+
+[data-anim="slideDown"] {
+  opacity: 0;
+  transform: translateY(-2rem);
+}
+
+[data-anim="slideLeft"] {
+  opacity: 0;
+  transform: translateX(-2rem);
+}
+
+[data-anim="slideRight"] {
+  opacity: 0;
+  transform: translateX(2rem);
+}
+
+/* Optional: Add will-change to optimize performance */
+[data-anim] {
+  will-change: transform, opacity;
+}
