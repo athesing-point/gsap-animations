@@ -6,9 +6,9 @@
  * data-anim="fadeIn|slideUp|slideDown|slideLeft|slideRight"
  * - Specifies which animation to use
  *
- * data-duration=".3" (optional)
+ * data-duration=".4" (optional)
  * - Animation duration in seconds
- * - Defaults to .3s if not specified
+ * - Defaults to .4s if not specified
  *
  * data-delay="0" (optional)
  * - Delay before animation starts in seconds
@@ -36,7 +36,9 @@ class ScrollAnimations {
 
     // Global configuration variables
     this.defaultDuration = 0.4;
-    this.movementDistance = "2rem"; // Global movement distance
+    this.movementDistance = "2rem";
+    this.intersectionThreshold = 0.2;
+    this.rootMargin = "-72px";
 
     this.defaultAnimations = {
       fadeIn: {
@@ -101,8 +103,8 @@ class ScrollAnimations {
         });
       },
       {
-        threshold: 0.35,
-        rootMargin: "-72px",
+        threshold: this.intersectionThreshold,
+        rootMargin: this.rootMargin,
       }
     );
 
