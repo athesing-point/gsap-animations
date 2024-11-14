@@ -23,91 +23,128 @@
 // GSAP Scroll Animations for Webflow
 class ScrollAnimations {
   constructor() {
-    // Animation configurations
+    console.log("ScrollAnimations initialized");
+
+    // Global configuration variables
+    this.defaultDuration = 0.4;
+    this.movementDistance = "2rem"; // Global movement distance
+
     this.defaultAnimations = {
       fadeIn: {
         opacity: 0,
-        duration: 0.3,
+        duration: this.defaultDuration,
       },
       slideUp: {
-        y: "3.5rem",
+        y: this.movementDistance, // Using global variable
         opacity: 0,
-        duration: 0.3,
+        duration: this.defaultDuration,
       },
       slideDown: {
-        y: "-3.5rem",
+        y: `-${this.movementDistance}`, // Using negative of global variable
         opacity: 0,
-        duration: 0.3,
+        duration: this.defaultDuration,
       },
       slideLeft: {
-        x: "-3.5rem",
+        x: `-${this.movementDistance}`, // Using negative of global variable
         opacity: 0,
-        duration: 0.3,
+        duration: this.defaultDuration,
       },
       slideRight: {
-        x: "3.5rem",
+        x: this.movementDistance, // Using global variable
         opacity: 0,
-        duration: 0.3,
+        duration: this.defaultDuration,
       },
     };
 
-    this.init();
+    this.setInitialStates();
+    setTimeout(() => this.init(), 100);
+  }
+
+  // Helper method to safely parse numeric attributes
+  safelyParseNumber(value, defaultValue) {
+    const parsed = parseFloat(value);
+    return !isNaN(parsed) && parsed >= 0 ? parsed : defaultValue;
+  }
+
+  setInitialStates() {
+    const animatedElements = document.querySelectorAll("[data-anim]");
+    animatedElements.forEach((element) => {
+      const animation = element.getAttribute("data-anim");
+      if (this.defaultAnimations[animation]) {
+        gsap.set(element, {
+          opacity: 0,
+          x: this.defaultAnimations[animation].x || 0,
+          y: this.defaultAnimations[animation].y || 0,
+          immediateRender: true,
+        });
+      }
+    });
   }
 
   init() {
-    // Create Intersection Observer
     this.observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             this.animateElement(entry.target);
-            // Unobserve after animation starts
             this.observer.unobserve(entry.target);
           }
         });
       },
       {
-        threshold: 0,
-        rootMargin: "3.5rem",
+        threshold: 0.1,
+        rootMargin: "56px",
       }
     );
 
-    // Select and observe all animated elements
     const animatedElements = document.querySelectorAll("[data-anim]");
+    console.log("Found animated elements:", animatedElements.length);
+
     animatedElements.forEach((element) => {
       const animation = element.getAttribute("data-anim");
-      const delay = element.getAttribute("data-delay") || 0;
-
       if (this.defaultAnimations[animation]) {
-        // Set initial state
-        gsap.set(element, {
-          opacity: this.defaultAnimations[animation].opacity,
-          x: this.defaultAnimations[animation].x || 0,
-          y: this.defaultAnimations[animation].y || 0,
-        });
-
-        // Start observing
         this.observer.observe(element);
+      } else {
+        console.warn(`Invalid animation type "${animation}" on element:`, element);
       }
     });
   }
 
   animateElement(element) {
     const animation = element.getAttribute("data-anim");
-    const delay = element.getAttribute("data-delay") || 0;
+
+    // Safely get duration and delay with fallbacks
+    const defaultDuration = this.defaultAnimations[animation].duration;
+    const defaultDelay = 0;
+
+    let duration = element.getAttribute("data-duration");
+    let delay = element.getAttribute("data-delay");
+
+    // Use safe parsing with fallbacks
+    duration = this.safelyParseNumber(duration, defaultDuration);
+    delay = this.safelyParseNumber(delay, defaultDelay);
 
     gsap.to(element, {
       opacity: 1,
       x: 0,
       y: 0,
-      duration: this.defaultAnimations[animation].duration,
-      delay: parseFloat(delay),
-      ease: "power2.out",
+      duration: duration,
+      delay: delay,
+      ease: "ease",
+      force3D: true,
     });
   }
 }
 
 // Initialize animations when Webflow is ready
-Webflow.push(function () {
-  new ScrollAnimations();
+window.addEventListener("load", function () {
+  if (typeof Webflow === "undefined") {
+    console.warn("Webflow not found, initializing directly");
+    new ScrollAnimations();
+  } else {
+    console.log("Initializing with Webflow");
+    Webflow.push(function () {
+      new ScrollAnimations();
+    });
+  }
 });
