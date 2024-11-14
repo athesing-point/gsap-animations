@@ -15,7 +15,7 @@
  * - Defaults to 0s if not specified
  *
  * Animation Trigger Settings:
- * - threshold: 0.1 (10% of element must be visible)
+ * - threshold: 0.35 (35% of element must be visible)
  * - rootMargin: "-72px" (animation triggers when element is 72px into viewport)
  *
  * To customize when animations trigger:
@@ -101,7 +101,7 @@ class ScrollAnimations {
         });
       },
       {
-        threshold: 0.1,
+        threshold: 0.35,
         rootMargin: "-72px",
       }
     );
