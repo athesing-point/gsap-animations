@@ -92,8 +92,8 @@ class ScrollAnimations {
         });
       },
       {
-        threshold: 0.1,
-        rootMargin: "56px",
+        threshold: 0.25,
+        rootMargin: "0px",
       }
     );
 
