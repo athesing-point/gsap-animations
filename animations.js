@@ -37,8 +37,17 @@ class ScrollAnimations {
     // Global configuration variables
     this.defaultDuration = 0.4;
     this.movementDistance = "2rem";
-    this.intersectionThreshold = 0.2;
-    this.rootMargin = "-72px";
+
+    // Adjust threshold and rootMargin based on screen width
+    if (window.innerWidth <= 768) {
+      // Mobile settings - more aggressive
+      this.intersectionThreshold = 0.1; // Only need 10% visibility on mobile
+      this.rootMargin = "0px"; // Trigger as soon as element enters viewport
+    } else {
+      // Desktop settings - original values
+      this.intersectionThreshold = 0.2;
+      this.rootMargin = "-72px";
+    }
 
     this.defaultAnimations = {
       fadeIn: {
