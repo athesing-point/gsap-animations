@@ -14,6 +14,15 @@
  * - Delay before animation starts in seconds
  * - Defaults to 0s if not specified
  *
+ * Animation Trigger Settings:
+ * - threshold: 0.1 (10% of element must be visible)
+ * - rootMargin: "-72px" (animation triggers when element is 72px into viewport)
+ *
+ * To customize when animations trigger:
+ * - Increase threshold (0 to 1) to require more element visibility
+ * - Use negative rootMargin (e.g. "-100px") to trigger later
+ * - Use positive rootMargin (e.g. "100px") to trigger earlier
+ *
  * Example:
  * <div data-anim="slideUp" data-duration="1.5" data-delay="0.2">
  *   Content to animate
@@ -92,8 +101,8 @@ class ScrollAnimations {
         });
       },
       {
-        threshold: 0.25,
-        rootMargin: "0px",
+        threshold: 0.1,
+        rootMargin: "-72px",
       }
     );
 
