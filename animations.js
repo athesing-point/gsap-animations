@@ -133,15 +133,32 @@ class ScrollAnimations {
     duration = this.safelyParseNumber(duration, defaultDuration);
     delay = this.safelyParseNumber(delay, defaultDelay);
 
-    gsap.to(element, {
+    // Get the initial animation properties
+    const animProps = { ...this.defaultAnimations[animation] };
+
+    // Create the animation configuration
+    const config = {
       opacity: 1,
       x: 0,
       y: 0,
+      scale: 1, // Added scale reset
       duration: duration,
       delay: delay,
       ease: "ease",
       force3D: true,
+      clearProps: "transform", // Clear transform after animation
+    };
+
+    // Set initial state
+    gsap.set(element, {
+      opacity: animProps.opacity,
+      x: animProps.x || 0,
+      y: animProps.y || 0,
+      scale: animProps.scale || 1,
     });
+
+    // Run the animation
+    gsap.to(element, config);
   }
 }
 
