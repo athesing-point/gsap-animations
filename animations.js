@@ -32,7 +32,7 @@
 // GSAP Scroll Animations for Webflow
 class ScrollAnimations {
   constructor() {
-    console.log("ScrollAnimations initialized");
+    // console.log("ScrollAnimations initialized");
 
     // Global configuration variables
     this.defaultDuration = 0.4;
@@ -107,7 +107,7 @@ class ScrollAnimations {
     );
 
     const animatedElements = document.querySelectorAll("[data-anim]");
-    console.log("Found animated elements:", animatedElements.length);
+    // console.log("Found animated elements:", animatedElements.length);
 
     animatedElements.forEach((element) => {
       const animation = element.getAttribute("data-anim");
@@ -168,7 +168,7 @@ window.addEventListener("load", function () {
     console.warn("Webflow not found, initializing directly");
     new ScrollAnimations();
   } else {
-    console.log("Initializing with Webflow");
+    // console.log("Initializing with Webflow");
     Webflow.push(function () {
       new ScrollAnimations();
     });
