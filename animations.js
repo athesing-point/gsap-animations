@@ -141,12 +141,11 @@ class ScrollAnimations {
       opacity: 1,
       x: 0,
       y: 0,
-      scale: 1, // Added scale reset
+      scale: animation === "scaleIn" ? 1 : animProps.scale || 1, // Only set scale to 1 for scaleIn
       duration: duration,
       delay: delay,
-      ease: "ease",
+      ease: "power2.out", // Changed ease for smoother animation
       force3D: true,
-      clearProps: "transform", // Clear transform after animation
     };
 
     // Set initial state
@@ -154,7 +153,8 @@ class ScrollAnimations {
       opacity: animProps.opacity,
       x: animProps.x || 0,
       y: animProps.y || 0,
-      scale: animProps.scale || 1,
+      scale: animation === "scaleIn" ? 0.85 : 1, // Only set initial scale for scaleIn
+      immediateRender: true,
     });
 
     // Run the animation
