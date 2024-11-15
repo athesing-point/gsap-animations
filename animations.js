@@ -74,6 +74,11 @@ class ScrollAnimations {
         opacity: 0,
         duration: this.defaultDuration,
       },
+      scaleIn: {
+        scale: 0.85,
+        opacity: 0,
+        duration: this.defaultDuration,
+      },
     };
 
     setTimeout(() => this.init(), 100);
