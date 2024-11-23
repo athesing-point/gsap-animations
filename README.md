@@ -48,26 +48,42 @@ A lightweight, attribute-driven animation system built on GSAP for Webflow proje
 
 Add these data attributes to any element you want to animate:
 
-### Core Animation Attributes
+### Available Attributes
 
-**`data-anim`**
+**`data-anim`** (required)
 
 - Specifies which animation to use
-- Available values: `fadeIn`, `slideUp`, `slideDown`, `slideLeft`, `slideRight`
+- Available animations:
+  - `fadeIn`: Fades element in
+  - `slideUp`: Slides up while fading in
+  - `slideDown`: Slides down while fading in
+  - `slideLeft`: Slides left while fading in
+  - `slideRight`: Slides right while fading in
+  - `scaleIn`: Scales up from 85% while fading in
 
 **`data-duration`** (optional)
 
-- Animation duration in seconds
-- Defaults to .4s if not specified
+- Controls how long the animation takes to complete
+- Value in seconds (e.g., "0.4", "1.5")
+- Defaults to 0.4s if not specified
 
 **`data-delay`** (optional)
 
-- Delay before animation starts in seconds
+- Adds a delay before the animation starts
+- Value in seconds (e.g., "0", "0.2")
 - Defaults to 0s if not specified
+
+**`data-instant`** (optional)
+
+- Makes the animation trigger immediately on page load instead of on scroll
+- Usage options:
+  - `data-instant` or `data-instant="true"`: Enables instant animation
+  - `data-instant="false"`: Explicitly disables instant animation
+  - If omitted: Animation triggers on scroll
 
 ### Animation Trigger Settings
 
-- threshold: 0.35 (35% of element must be visible)
+- threshold: 0.25 (25% of element must be visible)
 - rootMargin: "-72px" (animation triggers when element is 72px into viewport)
 
 To customize when animations trigger:
@@ -79,9 +95,14 @@ To customize when animations trigger:
 ### Example Usage
 
 ```html
-<div data-anim="fadeIn" data-duration="1" data-delay="0">
-  <!-- Your content here -->
-</div>
+<!-- Basic scroll animation -->
+<div data-anim="slideUp">I'll slide up when scrolled into view</div>
+
+<!-- Instant animation with custom timing -->
+<div data-anim="fadeIn" data-instant="true" data-duration="0.8" data-delay="0.2">I'll fade in immediately when the page loads</div>
+
+<!-- Scale animation with custom duration -->
+<div data-anim="scaleIn" data-duration="1.5">I'll scale up when scrolled into view</div>
 ```
 
 ## Performance Benefits

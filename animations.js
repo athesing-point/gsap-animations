@@ -81,7 +81,18 @@ class ScrollAnimations {
       },
     };
 
+    // Handle instant animations immediately
+    this.handleInstantAnimations();
+
     setTimeout(() => this.init(), 100);
+  }
+
+  // Updated method to use data-instant attribute
+  handleInstantAnimations() {
+    const instantElements = document.querySelectorAll('[data-anim][data-instant]:not([data-instant="false"])');
+    instantElements.forEach((element) => {
+      this.animateElement(element);
+    });
   }
 
   // Helper method to safely parse numeric attributes
@@ -106,7 +117,7 @@ class ScrollAnimations {
       }
     );
 
-    const animatedElements = document.querySelectorAll("[data-anim]");
+    const animatedElements = document.querySelectorAll('[data-anim]:not([data-instant]):not([data-instant="true"])');
     // console.log("Found animated elements:", animatedElements.length);
 
     animatedElements.forEach((element) => {
