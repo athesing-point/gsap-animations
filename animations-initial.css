@@ -39,5 +39,3 @@ noscript ~ * [data-anim] {
   transform: none !important;
 }
 /* add this near top of body <noscript><!-- This empty noscript tag enables CSS fallbacks --></noscript> */
-
-/* Testing this entry point */
