@@ -46,6 +46,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // Wait for Finsweet to initialize, then open first accordion
+  setTimeout(() => {
+    if (accordionToggles.length > 0) {
+      const firstToggle = accordionToggles[0];
+      // Trigger a click on the first toggle to open it
+      firstToggle.click();
+    }
+  }, 500); // Give Finsweet time to initialize
+
   function handleAccordionAnimation(content, bgShadow, isExpanded) {
     if (isAnimating) return;
 
