@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Animate the megaphone with its specific class
     tl.from(".refer-heroilly-mphone", {
       duration: 1,
-      y: 30,
+      y: "1.875rem",
       opacity: 0,
       rotate: -15,
     });
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         coins,
         {
           duration: 0.8,
-          y: 20,
+          y: "1.25rem",
           opacity: 0,
         },
         "-=0.4"
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ".refer-hiw_illy_left",
             {
               duration: 0.6,
-              x: -20,
+              x: "-1.25rem",
               opacity: 0,
             },
             "-=0.4"
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ".refer-hiw_illy_right",
             {
               duration: 0.6,
-              x: 20,
+              x: "1.25rem",
               opacity: 0,
             },
             "-=0.4"
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
       element.addEventListener("mouseenter", () => {
         gsap.to(element, {
           duration: 0.3,
-          y: -3,
+          y: "-0.1875rem",
           scale: 1.02,
           ease: "power1.out",
         });
