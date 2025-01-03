@@ -1,0 +1,146 @@
+[anim] {
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+[anim^="slide-up"] {
+  transform: translateY(1.5rem);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[anim="slide-up"],
+[anim="slide-up-100"],
+[anim="slide-up-200"],
+[anim="slide-up-300"],
+[anim="slide-up-400"],
+[anim="slide-up-500"],
+[anim="slide-up-600"],
+[anim="slide-up-700"] {
+  animation: slideUp 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+}
+
+[anim="slide-up-100"] {
+  animation-delay: 100ms;
+}
+[anim="slide-up-200"] {
+  animation-delay: 200ms;
+}
+[anim="slide-up-300"] {
+  animation-delay: 300ms;
+}
+[anim="slide-up-400"] {
+  animation-delay: 400ms;
+}
+[anim="slide-up-500"] {
+  animation-delay: 500ms;
+}
+[anim="slide-up-600"] {
+  animation-delay: 600ms;
+}
+[anim="slide-up-700"] {
+  animation-delay: 700ms;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+[anim="fade-in"],
+[anim="fade-in-100"],
+[anim="fade-in-200"],
+[anim="fade-in-300"],
+[anim="fade-in-400"],
+[anim="fade-in-500"],
+[anim="fade-in-600"],
+[anim="fade-in-700"] {
+  animation: fadeIn 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+}
+
+[anim="fade-in-100"] {
+  animation-delay: 100ms;
+}
+[anim="fade-in-200"] {
+  animation-delay: 200ms;
+}
+[anim="fade-in-300"] {
+  animation-delay: 300ms;
+}
+[anim="fade-in-400"] {
+  animation-delay: 400ms;
+}
+[anim="fade-in-500"] {
+  animation-delay: 500ms;
+}
+[anim="fade-in-600"] {
+  animation-delay: 600ms;
+}
+[anim="fade-in-700"] {
+  animation-delay: 700ms;
+}
+
+@keyframes flip {
+  from {
+    transform: perspective(400px) rotateX(-180deg);
+    opacity: 0;
+  }
+  to {
+    transform: perspective(400px) rotateX(0);
+    opacity: 1;
+  }
+}
+
+[anim="flip"],
+[anim="flip-100"],
+[anim="flip-200"],
+[anim="flip-300"],
+[anim="flip-400"],
+[anim="flip-500"],
+[anim="flip-600"],
+[anim="flip-700"] {
+  animation: flip 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+  transform-origin: center center;
+  backface-visibility: hidden;
+}
+
+[anim="flip-100"] {
+  animation-delay: 100ms;
+}
+
+[anim="flip-200"] {
+  animation-delay: 200ms;
+}
+
+[anim="flip-300"] {
+  animation-delay: 300ms;
+}
+
+[anim="flip-400"] {
+  animation-delay: 400ms;
+}
+
+[anim="flip-500"] {
+  animation-delay: 500ms;
+}
+
+[anim="flip-600"] {
+  animation-delay: 600ms;
+}
+
+[anim="flip-700"] {
+  animation-delay: 700ms;
+}
