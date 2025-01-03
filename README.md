@@ -146,3 +146,9 @@ You can directly use these files from JSDelivr:
 ```
 
 Note: While using @latest is convenient for development, we recommend pinning to a specific version (commit hash) in production for stability.
+
+## Bonus: CSS-Only Animations
+
+For hero sections and above-the-fold content where immediate animation is critical, we provide CSS-only alternatives that don't depend on JavaScript loading. These animations start immediately without any processing delays.
+
+See the README in the `/css-only` folder for implementation details and usage instructions.
