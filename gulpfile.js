@@ -40,4 +40,6 @@ function watch() {
   );
 }
 
+exports.minify = minify;
+exports.watch = watch;
 exports.default = watch;
