@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tl.to(
           question,
           {
-            color: "#000000",
+            color: "#444",
             duration: 0.2,
             ease: "none",
           },
