@@ -9,7 +9,7 @@ const remToPixels = (rem) => {
 
 // Initialize scroll handler
 const initNavScroll = () => {
-  const navbar = document.querySelector("nav"); // Adjust selector if needed
+  const navbar = document.querySelector("global-nav"); // Adjust selector if needed
   if (!navbar) return;
 
   const handleScroll = () => {
