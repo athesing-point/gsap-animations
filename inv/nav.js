@@ -15,13 +15,34 @@ const initNavScroll = () => {
 
   if (!navbar || !navMenu || !navBtn) return;
 
+  // Track if is-scrolled existed before menu open
+  let hadScrolledClass = false;
+
   // Handle menu toggle
   const closeMenu = () => {
     navMenu.classList.add("is-hidden");
+    // Remove is-scrolled only if it didn't exist before opening
+    if (!hadScrolledClass) {
+      navbar.classList.remove("is-scrolled");
+    }
   };
 
   const toggleMenu = (e) => {
     e.stopPropagation();
+    const isOpening = navMenu.classList.contains("is-hidden");
+
+    if (isOpening) {
+      // Store current state before opening
+      hadScrolledClass = navbar.classList.contains("is-scrolled");
+      // Add is-scrolled when opening
+      navbar.classList.add("is-scrolled");
+    } else {
+      // Remove is-scrolled only if it didn't exist before opening
+      if (!hadScrolledClass) {
+        navbar.classList.remove("is-scrolled");
+      }
+    }
+
     navMenu.classList.toggle("is-hidden");
   };
 
