@@ -7,10 +7,40 @@ const remToPixels = (rem) => {
   return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 };
 
-// Initialize scroll handler
+// Initialize scroll handler and menu functionality
 const initNavScroll = () => {
   const navbar = document.querySelector(".global-nav"); // Updated selector to match HTML structure
-  if (!navbar) return;
+  const navMenu = document.querySelector(".nav-menu");
+  const navBtn = document.querySelector(".nav-btn");
+
+  if (!navbar || !navMenu || !navBtn) return;
+
+  // Handle menu toggle
+  const closeMenu = () => {
+    navMenu.classList.add("is-hidden");
+  };
+
+  const toggleMenu = (e) => {
+    e.stopPropagation();
+    navMenu.classList.toggle("is-hidden");
+  };
+
+  // Click handlers
+  navBtn.addEventListener("click", toggleMenu);
+
+  // Close menu when clicking on links inside nav menu
+  navMenu.addEventListener("click", (e) => {
+    if (e.target.closest("a")) {
+      closeMenu();
+    }
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!navMenu.contains(e.target) && !navBtn.contains(e.target)) {
+      closeMenu();
+    }
+  });
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
