@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
     toggle.addEventListener("mouseleave", () => {
       if (question && !isExpanded) {
         gsap.to(question, {
-          color: "#000000",
+          color: "#444444",
           duration: 0.2,
           ease: "none",
         });
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tl.to(
           question,
           {
-            color: "#000000",
+            color: "#444",
             duration: 0.2,
             ease: "none",
           },
