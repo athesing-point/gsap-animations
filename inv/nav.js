@@ -1,5 +1,5 @@
-// Scroll threshold in rems (120px = 7.5rem at 16px base font size)
-const SCROLL_THRESHOLD = 7.5;
+// Scroll threshold in rems (40px = 2.5rem at 16px base font size)
+const SCROLL_THRESHOLD = 2.5;
 const MOBILE_BREAKPOINT = 768; // Standard mobile breakpoint in pixels
 
 // Convert rems to pixels based on current font size

@@ -67,7 +67,9 @@ class ScrollAnimations {
 
   // Updated method to use data-instant attribute
   handleInstantAnimations() {
-    const instantElements = document.querySelectorAll('[data-anim][data-instant]:not([data-instant="false"])');
+    const instantElements = document.querySelectorAll(
+      '[data-anim][data-instant]:not([data-instant="false"])'
+    );
     instantElements.forEach((element) => {
       this.animateElement(element);
     });
@@ -95,7 +97,9 @@ class ScrollAnimations {
       }
     );
 
-    const animatedElements = document.querySelectorAll('[data-anim]:not([data-instant]):not([data-instant="true"])');
+    const animatedElements = document.querySelectorAll(
+      '[data-anim]:not([data-instant]):not([data-instant="true"])'
+    );
     // // console.log("Found animated elements:", animatedElements.length);
 
     animatedElements.forEach((element) => {
@@ -103,7 +107,10 @@ class ScrollAnimations {
       if (this.defaultAnimations[animation]) {
         this.observer.observe(element);
       } else {
-        console.warn(`Invalid animation type "${animation}" on element:`, element);
+        console.warn(
+          `Invalid animation type "${animation}" on element:`,
+          element
+        );
       }
     });
   }
