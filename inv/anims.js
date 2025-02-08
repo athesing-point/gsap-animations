@@ -170,6 +170,14 @@ document.addEventListener("DOMContentLoaded", function () {
       `Starting GSAP animation for accordion ${index}: isExpanded = ${isExpanded}`
     );
 
+    // Store current scroll position
+    const scrollPos = window.scrollY;
+
+    const resetAnimatingState = () => {
+      isAnimating = false;
+      window.scrollTo(0, scrollPos);
+    };
+
     if (isExpanded) {
       content.style.display = "block"; // Ensure it's visible before animation
       const height = content.scrollHeight; // Get natural height for animation
@@ -180,10 +188,16 @@ document.addEventListener("DOMContentLoaded", function () {
         duration: 0.3,
         ease: "power2.out",
         onComplete: () => {
-          content.style.height = "auto"; // Prevent height collapse after animation
-          isAnimating = false;
-          console.log(`Animation complete: accordion ${index} opened.`);
+          try {
+            content.style.height = "auto"; // Prevent height collapse after animation
+            resetAnimatingState();
+            console.log(`Animation complete: accordion ${index} opened.`);
+          } catch (error) {
+            console.error("Error in accordion open animation:", error);
+            resetAnimatingState();
+          }
         },
+        onInterrupt: resetAnimatingState,
       });
 
       if (bgShadow) {
@@ -200,10 +214,16 @@ document.addEventListener("DOMContentLoaded", function () {
         duration: 0.3,
         ease: "power2.out",
         onComplete: () => {
-          content.style.display = "none"; // Hide after animation
-          isAnimating = false;
-          console.log(`Animation complete: accordion ${index} closed.`);
+          try {
+            content.style.display = "none"; // Hide after animation
+            resetAnimatingState();
+            console.log(`Animation complete: accordion ${index} closed.`);
+          } catch (error) {
+            console.error("Error in accordion close animation:", error);
+            resetAnimatingState();
+          }
         },
+        onInterrupt: resetAnimatingState,
       });
 
       if (bgShadow) {
