@@ -174,11 +174,8 @@ document.addEventListener("DOMContentLoaded", function () {
     gsap.killTweensOf(content);
 
     if (isExpanded) {
-      // Temporarily prevent scrolling during height calculation
-      document.body.style.overflow = "hidden";
       content.style.display = "block"; // Ensure it's visible before animation
       const height = content.scrollHeight; // Get natural height for animation
-      document.body.style.overflow = "";
 
       gsap.to(content, {
         height: height,
@@ -186,9 +183,15 @@ document.addEventListener("DOMContentLoaded", function () {
         duration: 0.3,
         ease: "power2.out",
         overwrite: true,
+        onUpdate: () => {
+          // Update ScrollTrigger on each frame
+          if (ScrollTrigger) ScrollTrigger.update();
+        },
         onComplete: () => {
           content.style.height = "auto"; // Prevent height collapse after animation
           isAnimating = false;
+          // Final ScrollTrigger update
+          if (ScrollTrigger) ScrollTrigger.update();
           console.log(`Animation complete: accordion ${index} opened.`);
         },
       });
@@ -208,9 +211,15 @@ document.addEventListener("DOMContentLoaded", function () {
         duration: 0.3,
         ease: "power2.out",
         overwrite: true,
+        onUpdate: () => {
+          // Update ScrollTrigger on each frame
+          if (ScrollTrigger) ScrollTrigger.update();
+        },
         onComplete: () => {
           content.style.display = "none"; // Hide after animation
           isAnimating = false;
+          // Final ScrollTrigger update
+          if (ScrollTrigger) ScrollTrigger.update();
           console.log(`Animation complete: accordion ${index} closed.`);
         },
       });

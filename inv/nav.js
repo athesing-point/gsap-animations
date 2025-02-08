@@ -21,9 +21,9 @@ const initNavScroll = () => {
   // Handle menu toggle
   const closeMenu = () => {
     navMenu.classList.add("is-hidden");
-    // Remove nav-is-scrolled only if it didn't exist before opening
+    // Remove is-scrolled only if it didn't exist before opening
     if (!hadScrolledClass) {
-      navbar.classList.remove("nav-is-scrolled");
+      navbar.classList.remove("is-scrolled");
     }
   };
 
@@ -33,13 +33,13 @@ const initNavScroll = () => {
 
     if (isOpening) {
       // Store current state before opening
-      hadScrolledClass = navbar.classList.contains("nav-is-scrolled");
-      // Add nav-is-scrolled when opening
-      navbar.classList.add("nav-is-scrolled");
+      hadScrolledClass = navbar.classList.contains("is-scrolled");
+      // Add is-scrolled when opening
+      navbar.classList.add("is-scrolled");
     } else {
-      // Remove nav-is-scrolled only if it didn't exist before opening
+      // Remove is-scrolled only if it didn't exist before opening
       if (!hadScrolledClass) {
-        navbar.classList.remove("nav-is-scrolled");
+        navbar.classList.remove("is-scrolled");
       }
     }
 
@@ -72,9 +72,9 @@ const initNavScroll = () => {
     const mobileThreshold = isMobile ? threshold * 0.75 : threshold; // 25% lower threshold for mobile
 
     if (scrollPosition > mobileThreshold) {
-      navbar.classList.add("nav-is-scrolled");
+      navbar.classList.add("is-scrolled");
     } else {
-      navbar.classList.remove("nav-is-scrolled");
+      navbar.classList.remove("is-scrolled");
     }
   };
 
