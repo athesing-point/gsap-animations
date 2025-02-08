@@ -170,15 +170,22 @@ document.addEventListener("DOMContentLoaded", function () {
       `Starting GSAP animation for accordion ${index}: isExpanded = ${isExpanded}`
     );
 
+    // Kill any existing tweens on the content
+    gsap.killTweensOf(content);
+
     if (isExpanded) {
+      // Temporarily prevent scrolling during height calculation
+      document.body.style.overflow = "hidden";
       content.style.display = "block"; // Ensure it's visible before animation
       const height = content.scrollHeight; // Get natural height for animation
+      document.body.style.overflow = "";
 
       gsap.to(content, {
         height: height,
         opacity: 1,
         duration: 0.3,
         ease: "power2.out",
+        overwrite: true,
         onComplete: () => {
           content.style.height = "auto"; // Prevent height collapse after animation
           isAnimating = false;
@@ -191,6 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
           opacity: 1,
           duration: 0.3,
           ease: "power2.out",
+          overwrite: true,
         });
       }
     } else {
@@ -199,6 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
         opacity: 0,
         duration: 0.3,
         ease: "power2.out",
+        overwrite: true,
         onComplete: () => {
           content.style.display = "none"; // Hide after animation
           isAnimating = false;
@@ -211,6 +220,7 @@ document.addEventListener("DOMContentLoaded", function () {
           opacity: 0,
           duration: 0.3,
           ease: "power2.out",
+          overwrite: true,
         });
       }
     }
