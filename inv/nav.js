@@ -75,40 +75,37 @@ const initNavScroll = () => {
     const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const mobileThreshold = isMobile ? threshold * 0.75 : threshold; // 25% lower threshold for mobile
 
+    // Simple scroll check - if we're above threshold, show background
     if (lastScrollPosition > mobileThreshold) {
-      if (!navbar.classList.contains("is-scrolled")) {
-        navbar.classList.add("is-scrolled");
-      }
+      navbar.classList.add("is-scrolled");
     } else {
-      if (
-        navbar.classList.contains("is-scrolled") &&
-        !navMenu.classList.contains("is-open")
-      ) {
+      // Only remove if menu is not open (is-hidden means menu is closed)
+      if (navMenu.classList.contains("is-hidden")) {
         navbar.classList.remove("is-scrolled");
       }
     }
   };
 
-  // Add scroll event listener with performance optimization
-  let ticking = false;
+  // Add scroll event listener with throttle
+  let lastRun = 0;
+  const throttleMs = 10;
+
   window.addEventListener("scroll", () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        handleScroll();
-        ticking = false;
-      });
-      ticking = true;
+    const now = Date.now();
+    if (now - lastRun >= throttleMs) {
+      handleScroll();
+      lastRun = now;
     }
   });
 
-  // Add resize listener to handle threshold changes
+  // Handle resize with debounce
+  let resizeTimeout;
   window.addEventListener("resize", () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
+    if (!resizeTimeout) {
+      resizeTimeout = setTimeout(() => {
         handleScroll();
-        ticking = false;
-      });
-      ticking = true;
+        resizeTimeout = null;
+      }, 10);
     }
   });
 
