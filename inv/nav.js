@@ -18,6 +18,9 @@ const initNavScroll = () => {
   // Track if is-scrolled existed before menu open
   let hadScrolledClass = false;
 
+  // Track scroll position
+  let lastScrollPosition = window.scrollY;
+
   // Handle menu toggle
   const closeMenu = () => {
     navMenu.classList.add("is-hidden");
@@ -64,23 +67,42 @@ const initNavScroll = () => {
   });
 
   const handleScroll = () => {
-    const scrollPosition = window.scrollY;
+    // Store actual scroll position
+    lastScrollPosition = window.scrollY;
     const threshold = remToPixels(SCROLL_THRESHOLD);
 
     // Adjust threshold for mobile
     const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
     const mobileThreshold = isMobile ? threshold * 0.75 : threshold; // 25% lower threshold for mobile
 
-    if (scrollPosition > mobileThreshold) {
-      navbar.classList.add("is-scrolled");
+    if (lastScrollPosition > mobileThreshold) {
+      if (!navbar.classList.contains("is-scrolled")) {
+        navbar.classList.add("is-scrolled");
+      }
     } else {
-      navbar.classList.remove("is-scrolled");
+      if (
+        navbar.classList.contains("is-scrolled") &&
+        !navMenu.classList.contains("is-open")
+      ) {
+        navbar.classList.remove("is-scrolled");
+      }
     }
   };
 
   // Add scroll event listener with performance optimization
   let ticking = false;
   window.addEventListener("scroll", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        handleScroll();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Add resize listener to handle threshold changes
+  window.addEventListener("resize", () => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
         handleScroll();

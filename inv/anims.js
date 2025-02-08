@@ -170,9 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
       `Starting GSAP animation for accordion ${index}: isExpanded = ${isExpanded}`
     );
 
-    // Kill any existing tweens on the content
-    gsap.killTweensOf(content);
-
     if (isExpanded) {
       content.style.display = "block"; // Ensure it's visible before animation
       const height = content.scrollHeight; // Get natural height for animation
@@ -182,16 +179,9 @@ document.addEventListener("DOMContentLoaded", function () {
         opacity: 1,
         duration: 0.3,
         ease: "power2.out",
-        overwrite: true,
-        onUpdate: () => {
-          // Update ScrollTrigger on each frame
-          if (ScrollTrigger) ScrollTrigger.update();
-        },
         onComplete: () => {
           content.style.height = "auto"; // Prevent height collapse after animation
           isAnimating = false;
-          // Final ScrollTrigger update
-          if (ScrollTrigger) ScrollTrigger.update();
           console.log(`Animation complete: accordion ${index} opened.`);
         },
       });
@@ -201,7 +191,6 @@ document.addEventListener("DOMContentLoaded", function () {
           opacity: 1,
           duration: 0.3,
           ease: "power2.out",
-          overwrite: true,
         });
       }
     } else {
@@ -210,16 +199,9 @@ document.addEventListener("DOMContentLoaded", function () {
         opacity: 0,
         duration: 0.3,
         ease: "power2.out",
-        overwrite: true,
-        onUpdate: () => {
-          // Update ScrollTrigger on each frame
-          if (ScrollTrigger) ScrollTrigger.update();
-        },
         onComplete: () => {
           content.style.display = "none"; // Hide after animation
           isAnimating = false;
-          // Final ScrollTrigger update
-          if (ScrollTrigger) ScrollTrigger.update();
           console.log(`Animation complete: accordion ${index} closed.`);
         },
       });
@@ -229,7 +211,6 @@ document.addEventListener("DOMContentLoaded", function () {
           opacity: 0,
           duration: 0.3,
           ease: "power2.out",
-          overwrite: true,
         });
       }
     }
