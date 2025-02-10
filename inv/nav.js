@@ -15,9 +15,13 @@ const initNavScroll = () => {
 
   if (!navbar || !navMenu || !navBtn) return;
 
-  // Remove loading class with a slight delay to ensure styles are applied
+  // Initially hide navbar until scroll state is determined
+  navbar.style.display = "none";
+
+  // Show navbar after initial scroll check
   requestAnimationFrame(() => {
-    navbar.classList.remove("nav-loading");
+    navbar.style.display = "";
+    handleScroll();
   });
 
   // Track if is-scrolled existed before menu open
