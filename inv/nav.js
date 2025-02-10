@@ -66,14 +66,19 @@ const initNavScroll = () => {
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
     const threshold = remToPixels(SCROLL_THRESHOLD);
-
-    // Adjust threshold for mobile
     const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
-    const mobileThreshold = isMobile ? threshold * 0.75 : threshold; // 25% lower threshold for mobile
+    const mobileThreshold = isMobile ? threshold * 0.75 : threshold;
 
+    // Store current nav state
+    const currentScrolled = navbar.classList.contains("is-scrolled");
+    const menuHidden = navMenu.classList.contains("is-hidden");
+
+    // Determine new state
     if (scrollPosition > mobileThreshold) {
-      navbar.classList.add("is-scrolled");
-    } else {
+      if (!currentScrolled) {
+        navbar.classList.add("is-scrolled");
+      }
+    } else if (menuHidden) {
       navbar.classList.remove("is-scrolled");
     }
   };

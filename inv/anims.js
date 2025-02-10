@@ -98,141 +98,133 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Accordion Implementation
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("Accordion script loaded.");
+  let isAnimating = false;
 
-  let isAnimating = false; // Prevents multiple animations overlapping
+  // Wait for GSAP to be ready
+  const initAccordions = () => {
+    // Select all accordion toggles
+    const accordionToggles = document.querySelectorAll(".product-faq-toggle");
+    const accordionContents = document.querySelectorAll(".product-faq-content");
 
-  // Select all accordion toggles
-  const accordionToggles = document.querySelectorAll(".product-faq-toggle");
+    // First hide all contents immediately
+    accordionContents.forEach((content) => {
+      content.style.display = "none";
+      content.style.height = "0";
+      content.style.opacity = "0";
+    });
 
-  if (accordionToggles.length === 0) {
-    console.warn("No accordion toggles found. Check your class names.");
-    return;
-  }
-
-  accordionToggles.forEach((toggle, index) => {
-    const accordionItem = toggle.closest(".product-faq-item");
-    const content = accordionItem?.querySelector(".product-faq-content");
-    const bgShadow = accordionItem?.querySelector(".prod-faq-bg_shadow");
-
-    if (!content) {
-      console.warn(`Accordion ${index} has no content element.`);
+    if (accordionToggles.length === 0) {
+      console.warn("No accordion toggles found. Check your class names.");
       return;
     }
 
-    console.log(`Initializing accordion ${index}:`, toggle);
+    accordionToggles.forEach((toggle, index) => {
+      const accordionItem = toggle.closest(".product-faq-item");
+      const content = accordionItem?.querySelector(".product-faq-content");
+      const bgShadow = accordionItem?.querySelector(".prod-faq-bg_shadow");
 
-    // Ensure overflow is hidden to avoid height issues
-    content.style.overflow = "hidden";
+      if (!content) {
+        console.warn(`Accordion ${index} has no content element.`);
+        return;
+      }
 
-    // Set initial state using GSAP
-    gsap.set(content, { height: 0, opacity: 0, display: "none" });
-    if (bgShadow) gsap.set(bgShadow, { opacity: 0 });
+      // Set initial state
+      toggle.setAttribute("aria-expanded", "false");
+      content.style.overflow = "hidden";
+      content.setAttribute("aria-hidden", "true");
 
-    // Click event to toggle accordion
-    toggle.addEventListener("click", function () {
-      if (isAnimating) return; // Prevent multiple rapid clicks from breaking animations
+      // Set initial state using GSAP
+      gsap.set(content, {
+        height: 0,
+        opacity: 0,
+        display: "none",
+      });
 
-      const isExpanded = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", !isExpanded);
-      console.log(`Click detected on accordion ${index}, toggling state.`);
-      handleAccordionAnimation(content, bgShadow, !isExpanded, index);
-    });
+      if (bgShadow) {
+        gsap.set(bgShadow, { opacity: 0 });
+      }
 
-    // MutationObserver to watch for aria-expanded changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (
-          mutation.type === "attributes" &&
-          mutation.attributeName === "aria-expanded"
-        ) {
-          const isExpanded = toggle.getAttribute("aria-expanded") === "true";
-          console.log(
-            `Accordion ${index} state changed: isExpanded = ${isExpanded}`
-          );
-          handleAccordionAnimation(content, bgShadow, isExpanded, index);
-        }
+      // Click event to toggle accordion
+      toggle.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (isAnimating) return;
+
+        const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", !isExpanded);
+        content.setAttribute("aria-hidden", isExpanded);
+
+        handleAccordionAnimation(content, bgShadow, !isExpanded);
       });
     });
+  };
 
-    observer.observe(toggle, {
-      attributes: true,
-      attributeFilter: ["aria-expanded"],
-    });
-
-    console.log(`Observer attached to accordion ${index}`);
-  });
-
-  function handleAccordionAnimation(content, bgShadow, isExpanded, index) {
+  function handleAccordionAnimation(content, bgShadow, isExpanded) {
     if (isAnimating) return;
     isAnimating = true;
-    console.log(
-      `Starting GSAP animation for accordion ${index}: isExpanded = ${isExpanded}`
-    );
 
-    // Store current scroll position
-    const scrollPos = window.scrollY;
-
-    const resetAnimatingState = () => {
-      isAnimating = false;
-      window.scrollTo(0, scrollPos);
-    };
+    const tl = gsap.timeline({
+      onComplete: () => {
+        isAnimating = false;
+      },
+    });
 
     if (isExpanded) {
-      content.style.display = "block"; // Ensure it's visible before animation
-      const height = content.scrollHeight; // Get natural height for animation
+      // Show content first
+      gsap.set(content, { display: "block", height: "auto" });
+      const height = content.offsetHeight;
+      gsap.set(content, { height: 0 });
 
-      gsap.to(content, {
+      tl.to(content, {
         height: height,
         opacity: 1,
         duration: 0.3,
         ease: "power2.out",
         onComplete: () => {
-          try {
-            content.style.height = "auto"; // Prevent height collapse after animation
-            resetAnimatingState();
-            console.log(`Animation complete: accordion ${index} opened.`);
-          } catch (error) {
-            console.error("Error in accordion open animation:", error);
-            resetAnimatingState();
-          }
+          content.style.height = "auto";
         },
-        onInterrupt: resetAnimatingState,
       });
 
       if (bgShadow) {
-        gsap.to(bgShadow, {
-          opacity: 1,
-          duration: 0.3,
-          ease: "power2.out",
-        });
+        tl.to(
+          bgShadow,
+          {
+            opacity: 1,
+            duration: 0.3,
+            ease: "power2.out",
+          },
+          "-=0.3"
+        );
       }
     } else {
-      gsap.to(content, {
+      // Set initial height before animating
+      gsap.set(content, { height: content.offsetHeight });
+
+      tl.to(content, {
         height: 0,
         opacity: 0,
         duration: 0.3,
         ease: "power2.out",
         onComplete: () => {
-          try {
-            content.style.display = "none"; // Hide after animation
-            resetAnimatingState();
-            console.log(`Animation complete: accordion ${index} closed.`);
-          } catch (error) {
-            console.error("Error in accordion close animation:", error);
-            resetAnimatingState();
-          }
+          gsap.set(content, { display: "none" });
         },
-        onInterrupt: resetAnimatingState,
       });
 
       if (bgShadow) {
-        gsap.to(bgShadow, {
-          opacity: 0,
-          duration: 0.3,
-          ease: "power2.out",
-        });
+        tl.to(
+          bgShadow,
+          {
+            opacity: 0,
+            duration: 0.3,
+            ease: "power2.out",
+          },
+          "-=0.3"
+        );
       }
     }
   }
+
+  // Initialize accordions after a brief delay to ensure GSAP is loaded
+  setTimeout(initAccordions, 0);
 });
