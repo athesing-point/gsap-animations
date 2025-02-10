@@ -7,13 +7,28 @@ const remToPixels = (rem) => {
   return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 };
 
+// Add initial loading class to navbar
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    const navbar = document.querySelector(".global-header-wrap");
+    if (navbar) {
+      navbar.classList.add("nav-loading");
+    }
+  },
+  { once: true }
+);
+
 // Initialize scroll handler and menu functionality
 const initNavScroll = () => {
-  const navbar = document.querySelector(".global-nav"); // Updated selector to match HTML structure
+  const navbar = document.querySelector(".global-header-wrap"); // Updated selector to match HTML structure
   const navMenu = document.querySelector(".nav-menu");
   const navBtn = document.querySelector(".nav-btn");
 
   if (!navbar || !navMenu || !navBtn) return;
+
+  // Remove loading class once initialized
+  navbar.classList.remove("nav-loading");
 
   // Track if is-scrolled existed before menu open
   let hadScrolledClass = false;
