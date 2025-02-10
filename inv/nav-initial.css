@@ -1,4 +1,8 @@
+.global-header-wrap {
+  display: block;
+  transition: none;
+}
+
 .nav-loading {
-  opacity: 0;
-  visibility: hidden;
+  display: none;
 }

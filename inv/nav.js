@@ -27,8 +27,10 @@ const initNavScroll = () => {
 
   if (!navbar || !navMenu || !navBtn) return;
 
-  // Remove loading class once initialized
-  navbar.classList.remove("nav-loading");
+  // Remove loading class with a slight delay to ensure styles are applied
+  requestAnimationFrame(() => {
+    navbar.classList.remove("nav-loading");
+  });
 
   // Track if is-scrolled existed before menu open
   let hadScrolledClass = false;
