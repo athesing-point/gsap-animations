@@ -95,13 +95,15 @@ const initNavScroll = () => {
     }
   });
 
-  // Immediate scroll check on init
+  // Run scroll check immediately on load
   handleScroll();
+  // Sometimes the initial scroll position isn't accurate immediately, so check again after a brief delay
+  requestAnimationFrame(() => {
+    handleScroll();
+  });
 };
 
-// Initialize immediately to handle initial scroll position correctly
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initNavScroll);
-} else {
-  initNavScroll();
-}
+// Initialize immediately when DOM is ready
+document.addEventListener("DOMContentLoaded", initNavScroll);
+// Also initialize on load in case DOM is already ready
+window.addEventListener("load", initNavScroll);
