@@ -106,6 +106,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const accordionToggles = document.querySelectorAll(".product-faq-toggle");
     const accordionContents = document.querySelectorAll(".product-faq-content");
 
+    // Check if GSAP is available
+    if (typeof gsap === "undefined") {
+      console.warn("GSAP not loaded - showing all accordions");
+      // Show all accordions when GSAP is not available
+      accordionContents.forEach((content) => {
+        content.style.display = "block";
+        content.style.height = "auto";
+        content.style.opacity = "1";
+        content.style.overflow = "visible";
+        const toggle = content
+          .closest(".product-faq-item")
+          ?.querySelector(".product-faq-toggle");
+        if (toggle) {
+          toggle.setAttribute("aria-expanded", "true");
+        }
+        content.setAttribute("aria-hidden", "false");
+      });
+      return;
+    }
+
     // First hide all contents immediately
     accordionContents.forEach((content) => {
       content.style.display = "none";

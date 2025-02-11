@@ -7,10 +7,26 @@
  *
  */
 
+// Helper function to check DOM ready state
+function ready(fn) {
+  if (document.readyState !== "loading") {
+    fn();
+  } else {
+    document.addEventListener("DOMContentLoaded", fn);
+  }
+}
+
 // GSAP Scroll Animations for Webflow
 class ScrollAnimations {
   constructor() {
-    // // console.log("ScrollAnimations initialized");
+    // Check if GSAP is available
+    if (typeof gsap === "undefined") {
+      ready(() => {
+        console.warn("GSAP not loaded - applying animation fallbacks");
+        this.applyFallbacks();
+      });
+      return;
+    }
 
     // Global configuration variables
     this.defaultDuration = 0.4;
@@ -63,6 +79,17 @@ class ScrollAnimations {
     this.handleInstantAnimations();
 
     setTimeout(() => this.init(), 100);
+  }
+
+  // Add fallback method
+  applyFallbacks() {
+    const animatedElements = document.querySelectorAll("[data-anim]");
+    animatedElements.forEach((element) => {
+      element.style.opacity = "1";
+      element.style.transform = "none";
+      element.style.willChange = "auto";
+      element.removeAttribute("data-anim");
+    });
   }
 
   // Updated method to use data-instant attribute

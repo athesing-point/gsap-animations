@@ -33,9 +33,19 @@
   will-change: transform, opacity;
 }
 
+/* Default closed state for accordions */
+.product-faq-content,
+.accordion-content {
+  display: none;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
 /* Show all animated elements when JavaScript is disabled */
 noscript ~ * [data-anim] {
   opacity: 1 !important;
   transform: none !important;
 }
+
 /* add this near top of body <noscript><!-- This empty noscript tag enables CSS fallbacks --></noscript> */

@@ -33,7 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set up observer to watch for Finsweet's state changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (mutation.type === "attributes" && mutation.attributeName === "aria-expanded") {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "aria-expanded"
+        ) {
           const isExpanded = toggle.getAttribute("aria-expanded") === "true";
           handleAccordionAnimation(content, bgShadow, isExpanded, index);
         }
