@@ -9,20 +9,11 @@ const remToPixels = (rem) => {
 
 // Initialize scroll handler and menu functionality
 const initNavScroll = () => {
-  const navbar = document.querySelector(".global-header-wrap"); // Updated selector to match HTML structure
+  const navbar = document.querySelector(".global-nav");
   const navMenu = document.querySelector(".nav-menu");
   const navBtn = document.querySelector(".nav-btn");
 
   if (!navbar || !navMenu || !navBtn) return;
-
-  // Initially hide navbar until scroll state is determined
-  navbar.style.display = "none";
-
-  // Show navbar after initial scroll check
-  requestAnimationFrame(() => {
-    navbar.style.display = "";
-    handleScroll();
-  });
 
   // Track if is-scrolled existed before menu open
   let hadScrolledClass = false;
@@ -80,14 +71,14 @@ const initNavScroll = () => {
 
     // Store current nav state
     const currentScrolled = navbar.classList.contains("is-scrolled");
-    const menuHidden = navMenu.classList.contains("is-hidden");
+    const menuOpen = !navMenu.classList.contains("is-hidden");
 
     // Determine new state
-    if (scrollPosition > mobileThreshold) {
+    if (scrollPosition > mobileThreshold || menuOpen) {
       if (!currentScrolled) {
         navbar.classList.add("is-scrolled");
       }
-    } else if (menuHidden) {
+    } else {
       navbar.classList.remove("is-scrolled");
     }
   };
@@ -104,9 +95,13 @@ const initNavScroll = () => {
     }
   });
 
-  // Initial check
+  // Immediate scroll check on init
   handleScroll();
 };
 
-// Initialize when DOM is ready
-document.addEventListener("DOMContentLoaded", initNavScroll);
+// Initialize immediately to handle initial scroll position correctly
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initNavScroll);
+} else {
+  initNavScroll();
+}
