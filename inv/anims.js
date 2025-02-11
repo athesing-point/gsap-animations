@@ -246,5 +246,5 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Initialize accordions after a brief delay to ensure GSAP is loaded
-  setTimeout(initAccordions, 0);
+  setTimeout(initAccordions, 100);
 });
