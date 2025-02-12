@@ -3,8 +3,8 @@ outdir = "dist"
 minify = true
 sourcemap = true
 target = "browser"
-format = "esm"
-naming = "[dir]/[name].min.[ext]"
+format = "global"
+naming = "[dir]/[name].[ext]"
 
 [bundle.minifyOptions]
 html = true

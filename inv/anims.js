@@ -214,7 +214,7 @@
           );
         }
       } else {
-        gsap.set(content, { height: content.offsetHeight });
+        const currentHeight = content.offsetHeight;
 
         tl.to(content, {
           height: 0,
@@ -222,7 +222,8 @@
           duration: 0.3,
           ease: "power2.out",
           onComplete: () => {
-            gsap.set(content, { display: "none" });
+            content.style.display = "none";
+            content.style.height = "0";
           },
         });
 

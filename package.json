@@ -1,7 +1,8 @@
 {
   "scripts": {
-    "build": "bun build animations.js animations-initial.css */*.{js,css} --outdir dist --minify --target browser --format esm --entry-naming [dir]/[name].min.[ext]",
-    "dev": "bun build animations.js animations-initial.css */*.{js,css} --outdir dist --minify --target browser --format esm --entry-naming [dir]/[name].min.[ext] --watch"
+    "build": "bun build ./inv/nav.js --outfile ./dist/inv/nav.min.js --minify --target browser --format iife && bun build ./components/blog-faq-item.js --outfile ./dist/components/blog-faq-item.min.js --minify --target browser --format iife && bun build ./components/prod-faq-accordion.js --outfile ./dist/components/prod-faq-accordion.min.js --minify --target browser --format iife && bun build ./inv/anims.js --outfile ./dist/inv/anims.min.js --minify --target browser --format iife && bun build ./refer-partner/anim.js --outfile ./dist/refer-partner/anim.min.js --minify --target browser --format iife && bun build ./partners/page-anim.js --outfile ./dist/partners/page-anim.min.js --minify --target browser --format iife && bun build ./refer/anim.js --outfile ./dist/refer/anim.min.js --minify --target browser --format iife && bun build ./animations.js --outfile ./dist/animations.min.js --minify --target browser --format iife && bun build ./animations-initial.css --outfile ./dist/animations-initial.min.css --minify && bun build ./css-only/animations.css --outfile ./dist/css-only/animations.min.css --minify",
+    "dev": "bun run build --watch",
+    "watch": "bun run build --watch"
   },
   "type": "module"
 }
