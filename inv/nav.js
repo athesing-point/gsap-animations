@@ -2,6 +2,7 @@
   // Scroll threshold in rems (40px = 2.5rem at 16px base font size)
   const SCROLL_THRESHOLD = 2.5;
   const MOBILE_BREAKPOINT = 768; // Standard mobile breakpoint in pixels
+  let isInitialized = false;
 
   // Convert rems to pixels based on current font size
   const remToPixels = (rem) => {
@@ -12,56 +13,112 @@
 
   // Initialize scroll handler and menu functionality
   const initNavScroll = () => {
+    if (isInitialized) return;
+    isInitialized = true;
+
     const navbar = document.querySelector(".global-nav");
     const navMenu = document.querySelector(".nav-menu");
     const navBtn = document.querySelector(".nav-btn");
 
-    if (!navbar || !navMenu || !navBtn) return;
+    // console.log("Nav elements found:", {
+    //   navbar: !!navbar,
+    //   navMenu: !!navMenu,
+    //   navBtn: !!navBtn,
+    // });
+
+    if (!navbar || !navMenu || !navBtn) {
+      // console.log("Missing required nav elements");
+      return;
+    }
 
     // Track if is-scrolled existed before menu open
     let hadScrolledClass = false;
 
     // Handle menu toggle
     const closeMenu = () => {
+      const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
+      // console.log("Closing menu, isMobile:", isMobile);
       navMenu.classList.add("is-hidden");
-      // Remove is-scrolled only if it didn't exist before opening
-      if (!hadScrolledClass) {
-        navbar.classList.remove("is-scrolled");
-      }
+      navBtn.setAttribute("aria-expanded", "false");
+      navMenu.setAttribute("aria-hidden", "true");
+      navBtn.classList.remove("nav-btn--active");
     };
 
     const toggleMenu = (e) => {
       e.stopPropagation();
-      const isOpening = navMenu.classList.contains("is-hidden");
+      const menuIsHidden = navMenu.classList.contains("is-hidden");
+      const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
 
-      if (isOpening) {
-        // Store current state before opening
-        hadScrolledClass = navbar.classList.contains("is-scrolled");
-        // Add is-scrolled when opening
-        navbar.classList.add("is-scrolled");
+      // console.log("Toggle menu:", {
+      //   menuIsHidden,
+      //   isMobile,
+      //   currentClasses: navMenu.classList.toString(),
+      //   windowWidth: window.innerWidth,
+      // });
+
+      if (menuIsHidden) {
+        // Opening the menu
+        navMenu.classList.remove("is-hidden");
+        navBtn.setAttribute("aria-expanded", "true");
+        navMenu.setAttribute("aria-hidden", "false");
+        navBtn.classList.add("nav-btn--active");
       } else {
-        // Remove is-scrolled only if it didn't exist before opening
-        if (!hadScrolledClass) {
-          navbar.classList.remove("is-scrolled");
-        }
+        // Closing the menu
+        navMenu.classList.add("is-hidden");
+        navBtn.setAttribute("aria-expanded", "false");
+        navMenu.setAttribute("aria-hidden", "true");
+        navBtn.classList.remove("nav-btn--active");
       }
 
-      navMenu.classList.toggle("is-hidden");
+      // Trigger scroll handler to update is-scrolled state
+      handleScroll();
+
+      // console.log("Menu state after toggle:", {
+      //   menuIsHidden: navMenu.classList.contains("is-hidden"),
+      //   classes: navMenu.classList.toString(),
+      // });
     };
 
     // Click handlers
-    navBtn.addEventListener("click", toggleMenu);
+    navBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleMenu(e);
+    });
 
     // Close menu when clicking on links inside nav menu
     navMenu.addEventListener("click", (e) => {
-      if (e.target.closest("a")) {
-        closeMenu();
+      const link = e.target.closest("a");
+      if (link) {
+        e.stopPropagation();
+
+        // Check if it's an anchor link
+        const href = link.getAttribute("href");
+        if (href && href.startsWith("#")) {
+          e.preventDefault();
+          const targetElement = document.querySelector(href);
+
+          if (targetElement) {
+            closeMenu();
+            targetElement.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        } else {
+          closeMenu();
+        }
       }
     });
 
     // Close menu when clicking outside
     document.addEventListener("click", (e) => {
-      if (!navMenu.contains(e.target) && !navBtn.contains(e.target)) {
+      // Only close if menu is actually open
+      if (
+        !navMenu.classList.contains("is-hidden") &&
+        !navMenu.contains(e.target) &&
+        !navBtn.contains(e.target)
+      ) {
         closeMenu();
       }
     });
@@ -106,8 +163,10 @@
     });
   };
 
-  // Initialize immediately when DOM is ready
-  document.addEventListener("DOMContentLoaded", initNavScroll);
-  // Also initialize on load in case DOM is already ready
-  window.addEventListener("load", initNavScroll);
+  // Initialize when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initNavScroll);
+  } else {
+    initNavScroll();
+  }
 })();
