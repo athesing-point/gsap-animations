@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "build": "bun build ./**/*.{js,css} --outdir dist --minify --target browser --format esm --entry-naming [dir]/[name].min.[ext]",
-    "dev": "bun build ./**/*.{js,css} --outdir dist --minify --target browser --format esm --entry-naming [dir]/[name].min.[ext] --watch"
+    "build": "bun build ./*.{js,css} ./**/*.{js,css} --outdir dist --minify --target browser --format esm --entry-naming [dir]/[name].min.[ext]",
+    "dev": "bun build ./*.{js,css} ./**/*.{js,css} --outdir dist --minify --target browser --format esm --entry-naming [dir]/[name].min.[ext] --watch"
   },
   "type": "module"
 }
