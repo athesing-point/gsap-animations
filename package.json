@@ -1,15 +1,7 @@
 {
-  "devDependencies": {
-    "gulp": "^5.0.0",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-if": "^3.0.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-terser": "^2.1.0"
-  },
   "scripts": {
-    "start": "npx gulp",
-    "build": "bun build ./animations.js ./inv/anims.js ./inv/nav.js ./refer-partner/anim.js ./partners/page-anim.js ./refer/anim.js ./components/blog-faq-item.js ./components/prod-faq-accordion.js --outdir dist --minify --target browser --format esm",
-    "build:watch": "bun build --watch"
+    "build": "bun build ./**/*.{js,css} --outdir dist --minify --target browser --format esm --entry-naming [dir]/[name].min.[ext]",
+    "dev": "bun build ./**/*.{js,css} --outdir dist --minify --target browser --format esm --entry-naming [dir]/[name].min.[ext] --watch"
   },
   "type": "module"
 }

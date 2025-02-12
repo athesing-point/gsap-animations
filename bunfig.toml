@@ -1,17 +1,14 @@
 [bundle]
-entrypoints = [
-  "animations.js",
-  "inv/anims.js",
-  "inv/nav.js",
-  "refer-partner/anim.js",
-  "partners/page-anim.js",
-  "refer/anim.js",
-  "components/blog-faq-item.js",
-  "components/prod-faq-accordion.js"
-]
 outdir = "dist"
 minify = true
 sourcemap = true
 target = "browser"
 format = "esm"
-naming = "[dir]/[name].min.js" 
+naming = "[dir]/[name].min.[ext]"
+
+[bundle.minifyOptions]
+html = true
+css = true
+js = true
+whitespace = true
+syntax = true 
