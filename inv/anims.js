@@ -190,10 +190,11 @@
       if (isExpanded) {
         gsap.set(content, { display: "block", height: "auto" });
         const height = content.offsetHeight;
-        gsap.set(content, { height: 0 });
+        gsap.set(content, { height: 0, paddingBottom: 0 });
 
         tl.to(content, {
           height: height,
+          paddingBottom: "1.5rem",
           opacity: 1,
           duration: 0.3,
           ease: "power2.out",
@@ -218,12 +219,15 @@
 
         tl.to(content, {
           height: 0,
+          paddingBottom: 0,
           opacity: 0,
           duration: 0.3,
           ease: "power2.out",
           onComplete: () => {
-            content.style.display = "none";
-            content.style.height = "0";
+            gsap.set(content, {
+              display: "none",
+              clearProps: "paddingBottom,height",
+            });
           },
         });
 
