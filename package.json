@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "build": "bun build ./*.{js,css} ./**/*.{js,css} --outdir dist --minify --target browser --format esm --entry-naming [dir]/[name].min.[ext]",
-    "dev": "bun build ./*.{js,css} ./**/*.{js,css} --outdir dist --minify --target browser --format esm --entry-naming [dir]/[name].min.[ext] --watch"
+    "build": "bun build animations.js animations-initial.css */*.{js,css} --outdir dist --minify --target browser --format esm --entry-naming [dir]/[name].min.[ext]",
+    "dev": "bun build animations.js animations-initial.css */*.{js,css} --outdir dist --minify --target browser --format esm --entry-naming [dir]/[name].min.[ext] --watch"
   },
   "type": "module"
 }
