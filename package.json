@@ -1,8 +1,12 @@
 {
   "scripts": {
-    "build": "echo '🔨 Building files...' && bun build ./inv/nav.js --outfile ./dist/inv/nav.min.js --minify --target browser --format iife && echo '✅ Built nav.min.js' && bun build ./components/blog-faq-item.js --outfile ./dist/components/blog-faq-item.min.js --minify --target browser --format iife && echo '✅ Built blog-faq-item.min.js' && bun build ./components/prod-faq-accordion.js --outfile ./dist/components/prod-faq-accordion.min.js --minify --target browser --format iife && echo '✅ Built prod-faq-accordion.min.js' && bun build ./inv/anims.js --outfile ./dist/inv/anims.min.js --minify --target browser --format iife && echo '✅ Built anims.min.js' && bun build ./refer-partner/anim.js --outfile ./dist/refer-partner/anim.min.js --minify --target browser --format iife && echo '✅ Built refer-partner/anim.min.js' && bun build ./partners/page-anim.js --outfile ./dist/partners/page-anim.min.js --minify --target browser --format iife && echo '✅ Built partners/page-anim.min.js' && bun build ./refer/anim.js --outfile ./dist/refer/anim.min.js --minify --target browser --format iife && echo '✅ Built refer/anim.min.js' && bun build ./animations.js --outfile ./dist/animations.min.js --minify --target browser --format iife && echo '✅ Built animations.min.js' && bun build ./animations-initial.css --outfile ./dist/animations-initial.min.css --minify && echo '✅ Built animations-initial.min.css' && bun build ./css-only/animations.css --outfile ./dist/css-only/animations.min.css --minify && echo '✅ Built css-only/animations.min.css' && echo '✨ Build complete!'",
-    "dev": "echo '👀 Starting watch mode...\n' && bun build --watch ./inv/nav.js ./components/blog-faq-item.js ./components/prod-faq-accordion.js ./inv/anims.js ./refer-partner/anim.js ./partners/page-anim.js ./refer/anim.js ./animations.js ./animations-initial.css ./css-only/animations.css --outdir ./dist --minify --target browser --format iife | while read -r line; do if [[ $line == *KB* ]]; then echo -e \"\\n🔄 Rebuilding...\\n$line\\n✨ Build complete!\\n\"; fi; done",
-    "watch": "bun run dev"
+    "build": "node build.js",
+    "dev": "node build.js --watch",
+    "watch": "npm run dev"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "glob": "^10.3.10"
+  }
 }

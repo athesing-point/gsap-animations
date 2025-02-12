@@ -3,11 +3,11 @@
   "tasks": [
     {
       "type": "shell",
-      "command": "bun",
+      "command": "npm",
       "args": ["run", "dev"],
       "problemMatcher": [],
-      "label": "bun: watch",
-      "detail": "bun run dev",
+      "label": "npm: watch",
+      "detail": "npm run dev",
       "isBackground": true,
       "group": {
         "kind": "build",
