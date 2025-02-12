@@ -108,8 +108,21 @@
         ".product-faq-content"
       );
 
-      if (accordionToggles.length === 0) {
-        console.warn("No accordion toggles found. Check your class names.");
+      if (typeof gsap === "undefined") {
+        console.warn("GSAP not loaded - showing all accordions");
+        accordionContents.forEach((content) => {
+          content.style.display = "block";
+          content.style.height = "auto";
+          content.style.opacity = "1";
+          content.style.overflow = "visible";
+          const toggle = content
+            .closest(".product-faq-item")
+            ?.querySelector(".product-faq-toggle");
+          if (toggle) {
+            toggle.setAttribute("aria-expanded", "true");
+          }
+          content.setAttribute("aria-hidden", "false");
+        });
         return;
       }
 
@@ -118,6 +131,11 @@
         content.style.height = "0";
         content.style.opacity = "0";
       });
+
+      if (accordionToggles.length === 0) {
+        console.warn("No accordion toggles found. Check your class names.");
+        return;
+      }
 
       accordionToggles.forEach((toggle, index) => {
         const accordionItem = toggle.closest(".product-faq-item");

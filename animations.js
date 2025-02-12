@@ -7,24 +7,12 @@
  *
  */
 
-// Helper function to check DOM ready state
-function ready(fn) {
-  if (document.readyState !== "loading") {
-    fn();
-  } else {
-    document.addEventListener("DOMContentLoaded", fn);
-  }
-}
-
 // GSAP Scroll Animations for Webflow
 class ScrollAnimations {
   constructor() {
     // Check if GSAP is available
     if (typeof gsap === "undefined") {
-      ready(() => {
-        console.warn("GSAP not loaded - applying animation fallbacks");
-        this.applyFallbacks();
-      });
+      new AnimationsFallback();
       return;
     }
 
@@ -81,17 +69,6 @@ class ScrollAnimations {
     setTimeout(() => this.init(), 100);
   }
 
-  // Add fallback method
-  applyFallbacks() {
-    const animatedElements = document.querySelectorAll("[data-anim]");
-    animatedElements.forEach((element) => {
-      element.style.opacity = "1";
-      element.style.transform = "none";
-      element.style.willChange = "auto";
-      element.removeAttribute("data-anim");
-    });
-  }
-
   // Updated method to use data-instant attribute
   handleInstantAnimations() {
     const instantElements = document.querySelectorAll(
@@ -127,7 +104,6 @@ class ScrollAnimations {
     const animatedElements = document.querySelectorAll(
       '[data-anim]:not([data-instant]):not([data-instant="true"])'
     );
-    // // console.log("Found animated elements:", animatedElements.length);
 
     animatedElements.forEach((element) => {
       const animation = element.getAttribute("data-anim");
@@ -164,10 +140,10 @@ class ScrollAnimations {
       opacity: 1,
       x: 0,
       y: 0,
-      scale: animation === "scaleIn" ? 1 : animProps.scale || 1, // Only set scale to 1 for scaleIn
+      scale: animation === "scaleIn" ? 1 : animProps.scale || 1,
       duration: duration,
       delay: delay,
-      ease: "power2.out", // Changed ease for smoother animation
+      ease: "power2.out",
       force3D: true,
     };
 
@@ -176,7 +152,7 @@ class ScrollAnimations {
       opacity: animProps.opacity,
       x: animProps.x || 0,
       y: animProps.y || 0,
-      scale: animation === "scaleIn" ? 0.85 : 1, // Only set initial scale for scaleIn
+      scale: animation === "scaleIn" ? 0.85 : 1,
       immediateRender: true,
     });
 
@@ -191,7 +167,6 @@ window.addEventListener("load", function () {
     console.warn("Webflow not found, initializing directly");
     new ScrollAnimations();
   } else {
-    // console.log("Initializing with Webflow");
     Webflow.push(function () {
       new ScrollAnimations();
     });
