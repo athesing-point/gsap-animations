@@ -7,6 +7,9 @@
     "gulp-terser": "^2.1.0"
   },
   "scripts": {
-    "start": "npx gulp"
-  }
+    "start": "npx gulp",
+    "build": "bun build ./animations.js ./inv/anims.js ./inv/nav.js ./refer-partner/anim.js ./partners/page-anim.js ./refer/anim.js ./components/blog-faq-item.js ./components/prod-faq-accordion.js --outdir dist --minify --target browser --format esm",
+    "build:watch": "bun build --watch"
+  },
+  "type": "module"
 }
