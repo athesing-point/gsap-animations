@@ -10,12 +10,6 @@
 // GSAP Scroll Animations for Webflow
 class ScrollAnimations {
   constructor() {
-    // Check if GSAP is available
-    if (typeof gsap === "undefined") {
-      new AnimationsFallback();
-      return;
-    }
-
     // Global configuration variables
     this.defaultDuration = 0.4;
     this.movementDistance = "2rem";

@@ -30,13 +30,12 @@
 
 /* Optional: Add will-change to optimize performance */
 [data-anim] {
-  will-change: transform, opacity;
+  will-change: transform, opacity, height;
 }
 
 /* Default closed state for accordions */
 .product-faq-content,
 .accordion-content {
-  display: none;
   height: 0;
   opacity: 0;
   overflow: hidden;

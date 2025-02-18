@@ -171,7 +171,7 @@
           toggle.setAttribute("aria-expanded", !isExpanded);
           content.setAttribute("aria-hidden", isExpanded);
 
-          console.log(`Accordion ${index} clicked. Expanded: ${!isExpanded}`);
+          // console.log(`Accordion ${index} clicked. Expanded: ${!isExpanded}`);
           handleAccordionAnimation(content, bgShadow, !isExpanded);
         });
       });

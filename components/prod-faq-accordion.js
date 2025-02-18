@@ -2,11 +2,38 @@
 (function () {
   // Wait for DOM to be ready
   document.addEventListener("DOMContentLoaded", function () {
+    // Check if GSAP is available
+    const isGsapAvailable = typeof gsap !== "undefined";
+
     // Track animation state
     let isAnimating = false;
 
     // Select all accordion toggles
     const accordionToggles = document.querySelectorAll(".product-faq-toggle");
+
+    // If GSAP isn't available after 2 seconds, force open all accordions and disable clicks
+    setTimeout(() => {
+      if (!isGsapAvailable) {
+        accordionToggles.forEach((toggle) => {
+          const accordionItem = toggle.closest(".product-faq-item");
+          const content = accordionItem.querySelector(".product-faq-content");
+          if (content) {
+            // Force open state
+            content.style.height = "auto";
+            content.style.opacity = "1";
+            content.style.display = "block";
+            toggle.setAttribute("aria-expanded", "true");
+
+            // Disable click events
+            toggle.style.pointerEvents = "none";
+          }
+        });
+        return; // Exit early if GSAP isn't available
+      }
+    }, 2000);
+
+    // Only proceed with GSAP animations if GSAP is available
+    if (!isGsapAvailable) return;
 
     // Initialize all accordions
     accordionToggles.forEach((toggle, index) => {
@@ -21,15 +48,14 @@
       const isInitiallyExpanded =
         toggle.getAttribute("aria-expanded") === "true";
 
+      // Let CSS handle initial state, only set display
       gsap.set(content, {
-        height: isInitiallyExpanded ? "auto" : 0,
-        opacity: isInitiallyExpanded ? 1 : 0,
         display: "block", // Always keep display block
       });
 
-      if (bgShadow) {
+      if (bgShadow && isInitiallyExpanded) {
         gsap.set(bgShadow, {
-          opacity: isInitiallyExpanded ? 1 : 0,
+          opacity: 1,
         });
       }
 
