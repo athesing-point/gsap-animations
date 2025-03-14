@@ -162,7 +162,7 @@ You can directly use these files from JSDelivr:
 **JavaScript:**
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/athesing-point/gsap-animations@latest/animations.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/athesing-point/gsap-animations@main/dist/animations.js"></script>
 ```
 
 **CSS:**
@@ -170,7 +170,7 @@ You can directly use these files from JSDelivr:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/athesing-point/gsap-animations@latest/animations-initial.min.css"
+  href="https://cdn.jsdelivr.net/gh/athesing-point/gsap-animations@main/dist/animations-initial.css"
 />
 ```
 
