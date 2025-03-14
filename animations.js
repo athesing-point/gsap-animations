@@ -158,7 +158,6 @@ class ScrollAnimations {
       rotationX: animProps.rotationX || 0,
       transformPerspective: animProps.transformPerspective || "none",
       transformOrigin: animProps.transformOrigin || "center center",
-      immediateRender: true,
     });
 
     // Run the animation
