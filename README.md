@@ -38,6 +38,17 @@ A lightweight, attribute-driven animation system built on GSAP for Webflow proje
          opacity: 0;
          transform: translateX(2rem);
        }
+       [data-anim="scaleIn"] {
+         opacity: 0;
+         transform: scale(0.85);
+       }
+       [data-anim="flipUp"] {
+         opacity: 0;
+         transform: translateY(2rem) rotateX(90deg);
+         transform-origin: center bottom;
+         perspective: 1000px;
+         backface-visibility: hidden;
+       }
        [data-anim] {
          will-change: transform, opacity;
        }
@@ -60,6 +71,7 @@ Add these data attributes to any element you want to animate:
   - `slideLeft`: Slides left while fading in
   - `slideRight`: Slides right while fading in
   - `scaleIn`: Scales up from 85% while fading in
+  - `flipUp`: Flips up from bottom with 3D rotation
 
 **`data-duration`** (optional)
 
@@ -99,10 +111,24 @@ To customize when animations trigger:
 <div data-anim="slideUp">I'll slide up when scrolled into view</div>
 
 <!-- Instant animation with custom timing -->
-<div data-anim="fadeIn" data-instant="true" data-duration="0.8" data-delay="0.2">I'll fade in immediately when the page loads</div>
+<div
+  data-anim="fadeIn"
+  data-instant="true"
+  data-duration="0.8"
+  data-delay="0.2"
+>
+  I'll fade in immediately when the page loads
+</div>
 
 <!-- Scale animation with custom duration -->
-<div data-anim="scaleIn" data-duration="1.5">I'll scale up when scrolled into view</div>
+<div data-anim="scaleIn" data-duration="1.5">
+  I'll scale up when scrolled into view
+</div>
+
+<!-- 3D flip animation -->
+<div data-anim="flipUp">
+  I'll flip up from the bottom when scrolled into view
+</div>
 ```
 
 ## Performance Benefits
@@ -142,7 +168,10 @@ You can directly use these files from JSDelivr:
 **CSS:**
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/athesing-point/gsap-animations@latest/animations-initial.min.css" />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/athesing-point/gsap-animations@latest/animations-initial.min.css"
+/>
 ```
 
 Note: While using @latest is convenient for development, we recommend pinning to a specific version (commit hash) in production for stability.

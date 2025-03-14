@@ -55,6 +55,14 @@ class ScrollAnimations {
         opacity: 0,
         duration: this.defaultDuration,
       },
+      flipUp: {
+        y: this.movementDistance,
+        rotationX: 90,
+        opacity: 0,
+        duration: this.defaultDuration,
+        transformPerspective: 1000,
+        transformOrigin: "center bottom",
+      },
     };
 
     // Handle instant animations immediately
@@ -147,11 +155,20 @@ class ScrollAnimations {
       x: animProps.x || 0,
       y: animProps.y || 0,
       scale: animation === "scaleIn" ? 0.85 : 1,
+      rotationX: animProps.rotationX || 0,
+      transformPerspective: animProps.transformPerspective || "none",
+      transformOrigin: animProps.transformOrigin || "center center",
       immediateRender: true,
     });
 
     // Run the animation
-    gsap.to(element, config);
+    gsap.to(element, {
+      ...config,
+      rotationX: 0,
+      transformPerspective: animation === "flipUp" ? 1000 : "none",
+      transformOrigin:
+        animation === "flipUp" ? "center bottom" : "center center",
+    });
   }
 }
 
