@@ -22,3 +22,5 @@ Example:
 - Flip: `anim="flip-200"` (200ms delay)
 
 \*Delays available in 100ms increments up to 700ms.
+
+CDN Version:

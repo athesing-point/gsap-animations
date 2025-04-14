@@ -144,3 +144,138 @@
 [anim="flip-700"] {
   animation-delay: 700ms;
 }
+
+/* Slide Down */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[anim="slide-down"],
+[anim="slide-down-100"],
+[anim="slide-down-200"],
+[anim="slide-down-300"],
+[anim="slide-down-400"],
+[anim="slide-down-500"],
+[anim="slide-down-600"],
+[anim="slide-down-700"] {
+  animation: slideDown 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+}
+
+[anim="slide-down-100"] {
+  animation-delay: 100ms;
+}
+[anim="slide-down-200"] {
+  animation-delay: 200ms;
+}
+[anim="slide-down-300"] {
+  animation-delay: 300ms;
+}
+[anim="slide-down-400"] {
+  animation-delay: 400ms;
+}
+[anim="slide-down-500"] {
+  animation-delay: 500ms;
+}
+[anim="slide-down-600"] {
+  animation-delay: 600ms;
+}
+[anim="slide-down-700"] {
+  animation-delay: 700ms;
+}
+
+/* Slide Left */
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+[anim="slide-left"],
+[anim="slide-left-100"],
+[anim="slide-left-200"],
+[anim="slide-left-300"],
+[anim="slide-left-400"],
+[anim="slide-left-500"],
+[anim="slide-left-600"],
+[anim="slide-left-700"] {
+  animation: slideLeft 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+}
+
+[anim="slide-left-100"] {
+  animation-delay: 100ms;
+}
+[anim="slide-left-200"] {
+  animation-delay: 200ms;
+}
+[anim="slide-left-300"] {
+  animation-delay: 300ms;
+}
+[anim="slide-left-400"] {
+  animation-delay: 400ms;
+}
+[anim="slide-left-500"] {
+  animation-delay: 500ms;
+}
+[anim="slide-left-600"] {
+  animation-delay: 600ms;
+}
+[anim="slide-left-700"] {
+  animation-delay: 700ms;
+}
+
+/* Slide Right */
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+[anim="slide-right"],
+[anim="slide-right-100"],
+[anim="slide-right-200"],
+[anim="slide-right-300"],
+[anim="slide-right-400"],
+[anim="slide-right-500"],
+[anim="slide-right-600"],
+[anim="slide-right-700"] {
+  animation: slideRight 0.4s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+}
+
+[anim="slide-right-100"] {
+  animation-delay: 100ms;
+}
+[anim="slide-right-200"] {
+  animation-delay: 200ms;
+}
+[anim="slide-right-300"] {
+  animation-delay: 300ms;
+}
+[anim="slide-right-400"] {
+  animation-delay: 400ms;
+}
+[anim="slide-right-500"] {
+  animation-delay: 500ms;
+}
+[anim="slide-right-600"] {
+  animation-delay: 600ms;
+}
+[anim="slide-right-700"] {
+  animation-delay: 700ms;
+}
