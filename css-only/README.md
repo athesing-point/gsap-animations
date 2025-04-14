@@ -12,12 +12,18 @@ Example:
 ## Available Animations
 
 - Slide Up: `anim="slide-up"`
+- Slide Down: `anim="slide-down"`
+- Slide Left: `anim="slide-left"`
+- Slide Right: `anim="slide-right"`
 - Fade In: `anim="fade-in"`
 - Flip: `anim="flip"`
 
 ## Delayed Animations\*
 
 - Slide Up: `anim="slide-up-300"` (300ms delay)
+- Slide Down: `anim="slide-down-300"` (300ms delay)
+- Slide Left: `anim="slide-left-300"` (300ms delay)
+- Slide Right: `anim="slide-right-300"` (300ms delay)
 - Fade In: `anim="fade-in-500"` (500ms delay)
 - Flip: `anim="flip-200"` (200ms delay)
 
